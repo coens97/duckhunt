@@ -1,0 +1,4 @@
+every sprite needs to have these functions
+- draw()
+
+and sprites could have loop() but need to be called in scene-loop()
