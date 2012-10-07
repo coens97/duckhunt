@@ -11,7 +11,10 @@ function scoreBoard(){
         bullet2 : new image("images/bullet.png", 178,535, 10, 15),
         bullet3 : new image("images/bullet.png", 194,535, 10, 15)
     };
-    
+    this.create = function(minD){
+        this.scoreDucks = [false,false,false,false,false,false,false,false,false,false]; 
+        this.minDucks = minD;
+    };
     
     this.addScore = function(n){
         this.score+=n;

@@ -22,13 +22,26 @@ function GameScene(){
      * 0:intro
      * 1:gameplay
      * 2:catching
+     * 3:round done and moving score ducks to left
      ********************/
-    
     this.duckCount = 0;
     this.deadDucks = 0;
-    this.currentDuck = 0;//
+    this.roundDeadDucks = 0;
+    this.currentDuck = 0;
     this.waitForDucksHitTheGround = false;
     
+    this.newRound = function(){
+        this.duckCount = 0;
+        this.deadDucks = 0;
+        this.roundDeadDucks = 0;
+        this.currentDuck = 0;
+        this.waitForDucksHitTheGround = false;
+        this.sprites.scoreBoard.create(6);
+        this.sprites.ducks.create(this.sprites.ducks.theDucks.length);//create new ducks
+        
+        this.sceneState = 0;
+        
+    };    
     this.mouseDown = function(x,y){
         if(this.sceneState == 1){
             this.sprites.scoreBoard.popBullet();
@@ -37,6 +50,7 @@ function GameScene(){
                 if(this.checkDuck(this.sprites.ducks.theDucks[i],x,y)){
                     this.sprites.ducks.theDucks[i].duckDead = true;//change duckState
                     this.deadDucks++;//another duck dead
+                    this.roundDeadDucks++;
                     
                     this.sprites.scoreBoard.addScore(500);
                     
@@ -73,19 +87,60 @@ function GameScene(){
         return false;
     };
     
-    this.newDucks = function(){//when dog have caught the ducks
+    this.newDucks = function(){//when dog have caught the ducks    
         this.sprites.scoreBoard.resetBullets();
         this.sprites.ducks.init();
         this.deadDucks = 0;
         this.sceneState = 1;
+        
+        this.checkRound();
     };
-    
+    this.checkRound = function(){//check if round is over
+        if(this.currentDuck >= 10){
+            this.sceneState = 3;
+        }
+    };
+    this.roundTransition = {
+        parent:this,
+        //this.parent.deadDucks
+        loop:function(){
+          if(frameCounter.frame %  20== 0){//dont do evry frame but every 5 frames
+                var duckScore = this.parent.sprites.scoreBoard.scoreDucks;
+                //check if scoreboard is right
+               var done = true;
+               for(var i = 0;i<this.parent.roundDeadDucks;i++){
+                    if(!duckScore[i]){
+                        done = false;    
+                    }
+               }
+               if(done){
+                    if(this.parent.sprites.scoreBoard.minDucks>this.parent.roundDeadDucks){
+                        alert("You lose!");
+                        gameState = 0;
+                    }else{
+                        this.parent.newRound();
+                    }
+                }          
+                //move the duckScore
+                for(var i = 1; i <10;i++){
+                    if(duckScore[i]&&!duckScore[i-1]){//if current duck is true and previous not swap those
+                        duckScore[i] = false;
+                        duckScore[i-1] = true;
+                        break;
+                    }
+                }               
+            }
+        }
+    };
     this.loop = function(){
         this.sprites.ducks.loop();//ducks need to move
         this.sprites.dog.loop();//dog has animation
         this.sprites.catchingDog.loop();//let the catching dog animate to
         if(this.waitForDucksHitTheGround){
             this.checkForDucksHitTheGround();    
+        }
+        if(this.sceneState==3){
+            this.roundTransition.loop();    
         }
     };
     this.checkForDucksHitTheGround = function(){
