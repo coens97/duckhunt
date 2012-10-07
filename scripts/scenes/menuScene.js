@@ -13,10 +13,12 @@ function MenuScene(){
         if(this.checkButton(this.sprites.duck1,x,y)){//when 1 is clicked
             gameScene.sprites.ducks.create(1);
             gameScene.newRound();
+            gameScene.sceneState = 0;
             gameState = 1;//ga naar gameplay
         }else if(this.checkButton(this.sprites.duck2,x,y)){
             gameScene.sprites.ducks.create(2);
             gameScene.newRound();
+            gameScene.sceneState = 0;
             gameState = 1;//ga naar gameplay
         }
     };

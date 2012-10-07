@@ -45,6 +45,7 @@ function GameScene(){
         
     };
     this.setShootTimer = function(){
+        clearTimeout(this.timer);
         this.timer = setTimeout(function(thisObj){thisObj.notAllShot();  
             },this.maxShootTime,this);
     };
