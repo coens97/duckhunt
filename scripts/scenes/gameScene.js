@@ -34,7 +34,8 @@ function GameScene(){
     this.round = 1;
     
     this.newRound = function(){
-        this.round++;
+        //reset values
+        this.round++;//add new round
         this.sprites.scoreBoard.sprites.round.string = "R"+this.round;
         this.duckCount = 0;
         this.deadDucks = 0;
@@ -43,8 +44,13 @@ function GameScene(){
         this.waitForDucksHitTheGround = false;
         this.sprites.scoreBoard.create(6);
         this.sprites.ducks.create(this.sprites.ducks.theDucks.length);//create new ducks
-         
-        this.sceneState = 0;
+        
+        //set variables by round
+        this.maxShootTime = rounds.getMaxTime(this.round);
+        this.sprites.ducks.changeSpeed(rounds.getDuckSpeed(this.round));
+        this.sprites.scoreBoard.minDucks = rounds.getMinDucks(this.round);
+        
+        this.sceneState = 1;
         
     };
     this.setShootTimer = function(){

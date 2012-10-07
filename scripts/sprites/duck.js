@@ -31,6 +31,11 @@ function ducks(){//give the input of the count of ducks, this object will contai
             this.theDucks[i].flyingAway = true;    
         }
     };
+    this.changeSpeed = function(n){
+        for(var i = 0;i < this.theDucks.length;i++){
+            this.theDucks[i].speed = n; 
+        }
+    };
 }
 function duck(){
     /*** TODO: create ducks beahivior and how to draw it ***/
