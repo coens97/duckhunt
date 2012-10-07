@@ -1,9 +1,14 @@
-function ducks(count){//give the input of the count of ducks, this object will contain more ducks 
+function ducks(){//give the input of the count of ducks, this object will contain more ducks 
     this.flyingAway = false;
     this.theDucks = [];//creat array to put them in
-    for(var i = 0; i < count;i++){//create the count of ducks
-        this.theDucks.push(new duck());//add duck to array    
-    }
+    
+    this.create = function(count){
+        this.theDucks = [];
+        gameScene.duckCount = count;
+        for(var i = 0; i < count;i++){//create the count of ducks
+            this.theDucks.push(new duck());//add duck to array    
+        }
+    };
     this.loop = function(){
         for(var i = 0;i < this.theDucks.length;i++){
             this.theDucks[i].loop();    

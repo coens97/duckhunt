@@ -10,9 +10,13 @@ function MenuScene(){
         };
     this.sprites.copy.font = "14pt duck_hunt";
     this.mouseDown = function(x,y){
-        if(this.checkButton(this.sprites.duck1,x,y)||this.checkButton(this.sprites.duck2,x,y)){
+        if(this.checkButton(this.sprites.duck1,x,y)){//when 1 is clicked
+            gameScene.sprites.ducks.create(1);
             gameState = 1;//ga naar gameplay
-        }   
+        }else if(this.checkButton(this.sprites.duck2,x,y)){
+            gameScene.sprites.ducks.create(2);
+            gameState = 1;//ga naar gameplay
+        }
     };
     this.checkButton = function(text,x,y){
         var w = 200;

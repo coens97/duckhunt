@@ -8,7 +8,7 @@ function GameScene(){
         bgColor : new rect("42b9fd",0,0,800,600),//the cyan background
         tree : new image("images/tree.png",5,210,173,260),//the tree isn't part of background
         catchingDog : new catchingDog(),
-        ducks : new ducks(2),//this will cotain more ducks    
+        ducks : new ducks(),//this will cotain more ducks    
         bg : new image("images/back.png",0,395,800,115),//the background is especialy the grass
         scoreBg : new rect("cb6a00",0,510,800,90),//the score image doesn't have bg color
         score : new image("images/score.png",150,530,500,50),//the scoreboard
@@ -24,7 +24,7 @@ function GameScene(){
      * 2:catching
      ********************/
     
-    this.duckCount = 2;
+    this.duckCount = 0;
     this.deadDucks = 0;
     this.currentDuck = 0;//
     this.waitForDucksHitTheGround = false;
@@ -45,7 +45,7 @@ function GameScene(){
                     
                     if(this.deadDucks == this.duckCount){
                         this.sprites.catchingDog.x = this.sprites.ducks.theDucks[i].x;//Change position of dog
-                        this.sprites.catchingDog.ducks = 2;
+                        this.sprites.catchingDog.ducks = this.duckCount;
                         this.waitForDucksHitTheGround = true;
                         return;
                     }                
