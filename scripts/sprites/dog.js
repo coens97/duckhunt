@@ -108,7 +108,7 @@ function catchingDog(){
     
     this.draw = function(){
         if(gameScene.sceneState == 2){
-            this.drawDog(0);
+            this.drawDog();
         }
     };
     this.loop = function(){
@@ -121,15 +121,50 @@ function catchingDog(){
                 },800,this);
             }
             if(this.y > 434){
-                gameScene.newDucks();
-                this.goUp = true;//reset values
+                var someDucks = gameScene.sprites.ducks;//check when ducks are fly out of the window
+                if(someDucks.flyingAway){
+                    var notOutTheWindow = false;
+                    for(var i = 0; i < someDucks.theDucks.length;i++){
+                        if(someDucks.theDucks[i].y > -75&&!someDucks.theDucks[i].duckDead){//if duck is not dead and not out of the window
+                            notOutTheWindow = true;    
+                        }
+                    }
+                    if(!notOutTheWindow){//if all ducks fly out of the window
+                        gameScene.newDucks();
+                        this.goUp = true;//reset values
+                    }
+                    
+                }else{
+                    gameScene.newDucks();
+                    this.goUp = true;//reset values
+                }
             }
             
         }
     };
-    this.drawDog = function(count){//put here the number of ducks he catch
-        ctx.drawImage(this.theImage,
+    this.laughing = {
+        parent:this,
+        frame:0,
+        draw:function(){
+            ctx.drawImage(this.parent.theImage,
+                        273+136*this.frame,
+                        0, 136,139,this.parent.x,this.parent.y,136,139);
+            if(frameCounter.frame %  5== 0){//the sprite don't need to change evry frame
+            this.frame++;
+            if(this.frame >= 2){//if last frame
+                this.frame = 0;    
+            }
+        }
+        }
+    }
+    
+    this.drawDog = function(){
+        if(this.ducks==0){//when laughing
+            this.laughing.draw();
+        }else{
+            ctx.drawImage(this.theImage,
                         136*((this.ducks==1)?0:1),
                         0, 136,139,this.x,this.y,136,139);
+        }
     };
 }

@@ -27,6 +27,7 @@ function GameScene(){
     this.duckCount = 2;
     this.deadDucks = 0;
     this.currentDuck = 0;//
+    this.waitForDucksHitTheGround = false;
     
     this.mouseDown = function(x,y){
         if(this.sceneState == 1){
@@ -45,7 +46,7 @@ function GameScene(){
                     if(this.deadDucks == this.duckCount){
                         this.sprites.catchingDog.x = this.sprites.ducks.theDucks[i].x;//Change position of dog
                         this.sprites.catchingDog.ducks = 2;
-                        this.sceneState = 2;//let the dog catch it
+                        this.waitForDucksHitTheGround = true;
                         return;
                     }                
                 }
@@ -54,14 +55,15 @@ function GameScene(){
                 this.currentDuck += this.duckCount - this.deadDucks;
                 this.sprites.catchingDog.x = 400;//Change position of dog
                 this.sprites.catchingDog.ducks = this.deadDucks;
-                this.sceneState = 2;//let the dog catch it
+                this.waitForDucksHitTheGround = true;
+                this.sprites.ducks.letFly();
             }
         }
     };
     
     this.checkDuck = function(duck,x,y){//check if shot on duck
         if(duck.duckDead){
-            return;    
+            return false;    
         }
         var w = 75;
         var h = 74;
@@ -82,6 +84,21 @@ function GameScene(){
         this.sprites.ducks.loop();//ducks need to move
         this.sprites.dog.loop();//dog has animation
         this.sprites.catchingDog.loop();//let the catching dog animate to
+        if(this.waitForDucksHitTheGround){
+            this.checkForDucksHitTheGround();    
+        }
+    };
+    this.checkForDucksHitTheGround = function(){
+        var notOutOfScreen = false;
+        for(var i = 0;i < this.sprites.ducks.theDucks.length;i++){
+            if(this.sprites.ducks.theDucks[i].duckDead&&this.sprites.ducks.theDucks[i].y<450){//if a duck is dead and not out of window 
+                notOutOfScreen = true;
+            }
+        }
+        if(!notOutOfScreen){
+            this.waitForDucksHitTheGround = false;
+            this.sceneState = 2;//let the dog catch it
+        }
     };
     
     this.draw = function(){

@@ -1,4 +1,5 @@
 function ducks(count){//give the input of the count of ducks, this object will contain more ducks 
+    this.flyingAway = false;
     this.theDucks = [];//creat array to put them in
     for(var i = 0; i < count;i++){//create the count of ducks
         this.theDucks.push(new duck());//add duck to array    
@@ -14,9 +15,16 @@ function ducks(count){//give the input of the count of ducks, this object will c
         }
     };
     this.init = function(){
+        this.flyingAway = false;
         for(var i = 0;i < this.theDucks.length;i++){
             this.theDucks[i].init();    
         }        
+    };
+    this.letFly = function(){//lket the ducks fly away
+        this.flyingAway = true;
+        for(var i = 0;i < this.theDucks.length;i++){
+            this.theDucks[i].flyingAway = true;    
+        }
     };
 }
 function duck(){
@@ -26,6 +34,7 @@ function duck(){
     this.speed = 4;
     this.frame = 0;
     this.duckDead;
+    this.flyingAway = false;
     
     this.duckDirection;
     this.duckDirections = {0:0, 1:3, 2:3, 3:1, 4:2, 5:2};
@@ -57,12 +66,17 @@ function duck(){
         this.y = 425;
         this.newTopBound();this.bottomBound = 600;this.newLeftBound();this.newRightBound();
         this.duckDead = false;
+        this.flyingAway = false;
         this.duckDirection = [0,1,3,4][Math.round(Math.random()*3)];//random direction upwards
     };
     this.init();//put the values in variables
     
     this.loop = function(){
-        if(gameScene.sceneState != 1){
+        if(this.flyingAway&&!this.duckDead){
+            this.flyAway.loop();
+            return;
+        }
+        if(gameScene.sceneState != 1&&!this.duckDead){//let the duck hit the ground while dog is catching it
             return;    
         }
         if(this.duckDead){
@@ -137,7 +151,11 @@ function duck(){
         }
     };    
     this.draw = function(){
-        if(gameScene.sceneState != 1){
+        if(this.flyingAway&&!this.duckDead){
+            this.flyAway.draw();
+            return;
+        }
+        if(gameScene.sceneState != 1&&!this.duckDead){
             return;    
         }
         if(this.duckDead){
@@ -185,5 +203,24 @@ function duck(){
                 }
             }
         }
-    }
+    };
+    this.flyAway = {
+        parent:this,
+        frame:0,
+        loop:function(){
+            this.parent.y -=8;
+        },
+        draw : function(){
+            ctx.drawImage(this.parent.theImage,
+                        this.frame * 75,
+                        74,75,75,this.parent.x,this.parent.y,75,75);
+                        
+            if(frameCounter.frame %  5== 0){//the sprite don't need to change evry frame
+                this.frame++;
+                if(this.frame >= 3){//if last frame
+                this.frame = 0;    
+                }
+            }
+        }        
+    };
 }
