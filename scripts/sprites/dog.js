@@ -86,6 +86,7 @@ function dog(){
                 this.goUp = false;
             }
             if(this.parent.y > 420&&!this.goUp){
+                gameScene.setShootTimer(); 
                 gameScene.sceneState = 1;
             }
         }

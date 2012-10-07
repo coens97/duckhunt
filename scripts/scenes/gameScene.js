@@ -29,6 +29,8 @@ function GameScene(){
     this.roundDeadDucks = 0;
     this.currentDuck = 0;
     this.waitForDucksHitTheGround = false;
+    this.maxShootTime = 10000;
+    this.timer;
     
     this.newRound = function(){
         this.duckCount = 0;
@@ -38,10 +40,14 @@ function GameScene(){
         this.waitForDucksHitTheGround = false;
         this.sprites.scoreBoard.create(6);
         this.sprites.ducks.create(this.sprites.ducks.theDucks.length);//create new ducks
-        
+         
         this.sceneState = 0;
         
-    };    
+    };
+    this.setShootTimer = function(){
+        this.timer = setTimeout(function(thisObj){thisObj.notAllShot();  
+            },this.maxShootTime,this);
+    };
     this.mouseDown = function(x,y){
         if(this.sceneState == 1){
             this.sprites.scoreBoard.popBullet();
@@ -66,12 +72,17 @@ function GameScene(){
                 }
             }
             if(this.sprites.scoreBoard.gameBullets == 0){
-                this.currentDuck += this.duckCount - this.deadDucks;
-                this.sprites.catchingDog.x = 400;//Change position of dog
-                this.sprites.catchingDog.ducks = this.deadDucks;
-                this.waitForDucksHitTheGround = true;
-                this.sprites.ducks.letFly();
+                this.notAllShot();
             }
+        }
+    };
+    this.notAllShot = function(){//when subround is over but not all ducks are shot
+        if(this.sceneState==1){
+            this.currentDuck += this.duckCount - this.deadDucks;
+            this.sprites.catchingDog.x = 400;//Change position of dog
+            this.sprites.catchingDog.ducks = this.deadDucks;
+            this.waitForDucksHitTheGround = true;
+            this.sprites.ducks.letFly();
         }
     };
     
@@ -92,6 +103,8 @@ function GameScene(){
         this.sprites.ducks.init();
         this.deadDucks = 0;
         this.sceneState = 1;
+        
+        this.setShootTimer(); 
         
         this.checkRound();
     };
