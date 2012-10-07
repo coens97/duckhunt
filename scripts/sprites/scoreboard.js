@@ -7,6 +7,7 @@ function scoreBoard(){
     
     this.sprites = {
         score : new text("FFFFFF","0",640,552),
+        round : new text("FFFFFF", "R1",80,560),
         bullet1 : new image("images/bullet.png", 162,535, 10, 15),
         bullet2 : new image("images/bullet.png", 178,535, 10, 15),
         bullet3 : new image("images/bullet.png", 194,535, 10, 15)

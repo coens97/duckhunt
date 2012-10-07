@@ -11,19 +11,19 @@ function MenuScene(){
     this.sprites.copy.font = "14pt duck_hunt";
     this.mouseDown = function(x,y){
         if(this.checkButton(this.sprites.duck1,x,y)){//when 1 is clicked
-            gameScene.sprites.ducks.create(1);
-            gameScene.newRound();
-            gameScene.sprites.dog = new dog();
-            gameScene.sceneState = 0;
-            gameState = 1;//ga naar gameplay
+            this.startGame(1);
         }else if(this.checkButton(this.sprites.duck2,x,y)){
-            gameScene.sprites.ducks.create(2);
-            gameScene.newRound();
-            gameScene.sprites.dog = new dog();
-            gameScene.sceneState = 0;
-            gameState = 1;//ga naar gameplay
+            this.startGame(2);
         }
     };
+    this.startGame = function(n){
+        gameScene.sprites.ducks.create(n);
+        gameScene.round = 0;//will become 1 in newRound
+        gameScene.newRound();
+        gameScene.sprites.dog = new dog();
+        gameScene.sceneState = 0;
+        gameState = 1;//ga naar gameplay
+    }
     this.checkButton = function(text,x,y){
         var w = 200;
         var h = 20;

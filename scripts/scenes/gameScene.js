@@ -31,8 +31,11 @@ function GameScene(){
     this.waitForDucksHitTheGround = false;
     this.maxShootTime = 10000;
     this.timer;
+    this.round = 1;
     
     this.newRound = function(){
+        this.round++;
+        this.sprites.scoreBoard.sprites.round.string = "R"+this.round;
         this.duckCount = 0;
         this.deadDucks = 0;
         this.roundDeadDucks = 0;

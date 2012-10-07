@@ -23,7 +23,8 @@ requirejs([//put here the other files that need to be included
     "sprites/duck",
     "sprites/scoreboard",
     "scenes/menuScene",
-    "scenes/gameScene"
+    "scenes/gameScene",
+    "rounds"
     ], function() {//when other scripts are loaded we can get started!
     console.log("Other scripts loaded");
     frameCounter = new FrameCounter();
