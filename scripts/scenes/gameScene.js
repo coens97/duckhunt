@@ -138,7 +138,7 @@ function GameScene(){
                }
                if(done){
                     if(this.parent.sprites.scoreBoard.minDucks>this.parent.roundDeadDucks){
-                        highScore.setHighScore(this.sprites.scoreBoard.score);
+                        highScore.setHighScore(this.parent.sprites.scoreBoard.score);
                         alert("You lose!");
                         gameState = 0;
                     }else{
