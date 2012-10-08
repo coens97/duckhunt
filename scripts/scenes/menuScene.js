@@ -40,7 +40,8 @@ function MenuScene(){
     this.draw = function(){
         /***********
          * loop trough all sprites and draw it on canvas
-         ***********/        
+         ***********/     
+        this.sprites.highscore.string = "Highscore : "+ highScore.getHighScore();
         for(var thisSprite in this.sprites){
             this.sprites[thisSprite].draw();       
         } 
