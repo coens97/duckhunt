@@ -22,6 +22,8 @@ function MenuScene(){
         gameScene.newRound();
         gameScene.sprites.dog = new dog();
         gameScene.sceneState = 0;
+        gameScene.sprites.scoreBoard.score = 0;
+        gameScene.sprites.scoreBoard.sprites.score.string = 0;
         gameState = 1;//ga naar gameplay
     }
     this.checkButton = function(text,x,y){
