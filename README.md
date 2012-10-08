@@ -5,4 +5,3 @@ There is no server-side
 TODO:
 - The ducks don't cross each other, will prevent one shot for more ducks
 - Add sounds
-- Add highscore (using localstorage)
