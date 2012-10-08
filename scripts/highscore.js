@@ -20,7 +20,9 @@ var highScore = {
             console.log("Local storage don't work!");
             return false;
         }
-        localStorage.highScore = n;
+        if(localStorage.highScore < n){
+            localStorage.highScore = n;
+        }
         return true;
     }
 };
