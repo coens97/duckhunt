@@ -24,7 +24,8 @@ requirejs([//put here the other files that need to be included
     "sprites/scoreboard",
     "scenes/menuScene",
     "scenes/gameScene",
-    "rounds"
+    "rounds",
+    "highscore"
     ], function() {//when other scripts are loaded we can get started!
     console.log("Other scripts loaded");
     frameCounter = new FrameCounter();
