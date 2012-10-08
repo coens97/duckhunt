@@ -26,6 +26,7 @@ function ducks(){//give the input of the count of ducks, this object will contai
         }        
     };
     this.letFly = function(){//lket the ducks fly away
+        gameScene.sprites.bgColor.color = "fcbcb0";
         this.flyingAway = true;
         for(var i = 0;i < this.theDucks.length;i++){
             this.theDucks[i].flyingAway = true;    

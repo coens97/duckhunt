@@ -34,6 +34,7 @@ function GameScene(){
     this.round = 1;
     
     this.newRound = function(){
+        console.log("New round");
         //reset values
         this.round++;//add new round
         this.sprites.scoreBoard.sprites.round.string = "R"+this.round;
@@ -113,7 +114,7 @@ function GameScene(){
         this.sprites.ducks.init();
         this.deadDucks = 0;
         this.sceneState = 1;
-        
+        this.sprites.bgColor.color = "42b9fd";
         this.setShootTimer(); 
         
         this.checkRound();
