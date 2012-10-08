@@ -15,6 +15,8 @@ function scoreBoard(){
     this.create = function(minD){
         this.scoreDucks = [false,false,false,false,false,false,false,false,false,false]; 
         this.minDucks = minD;
+        this.score = 0;
+        this.sprites.score.string = "0";
     };
     
     this.addScore = function(n){
