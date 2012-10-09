@@ -8,4 +8,3 @@ TODO:
 - The ducks don't cross each other, will prevent one shot for more ducks
 - Add sounds
 - Make image loader
-- 
