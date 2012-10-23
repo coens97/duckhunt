@@ -1,10 +1,6 @@
 /**************
  *Sprites 
- *************
- * All sprites need function draw()
- * and at least the variables x and y
- * the variables w and h are handy to(width and height)
- ************/
+ *************/
 function rect(color,x,y,w,h){//this is an object
     /***usage***
      * var someRect = new rect("ffffff",10,20,300,200);//to create new rect
